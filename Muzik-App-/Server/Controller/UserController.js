@@ -17,7 +17,7 @@ const UserLogin = (req, res) => {
             maxAge: 1000 * 60 * 60,
             httpOnly: false,
         })
-        console.log(req.cookies);
+        // console.log(req.cookies);
         res.status(200).send(data);
     }).catch((err)=>{
         res.send(err);

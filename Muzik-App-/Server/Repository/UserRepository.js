@@ -1,7 +1,7 @@
 const UserModel = require("../Model/UserModel");
 const bcryptjs = require("bcryptjs");
 const { GenerateToken } = require('../Auth/Auth');
-const main = require("../Sendmail/sendMail");
+// const main = require("../Sendmail/sendMail");
 
 function RegisterUser(user){
     return new Promise((resolve, reject)=>{

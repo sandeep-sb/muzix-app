@@ -16,7 +16,7 @@ async function main(link, receiver) {
     
     const info = await transporter.sendMail({
         from: '"Sender Name" <from@example.net>',
-        to: "iamssb99@gmail.com",
+        to: receiver,
         subject: "Hello from node",
         text: "Hello world?",
         html: `<b>We have received a password change request from your account<br><br>Click on the link below to reset your password<br><br><a href="${link}">Click here to change password</a></b>`,
