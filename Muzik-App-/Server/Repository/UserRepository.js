@@ -1,7 +1,7 @@
 const UserModel = require("../Model/UserModel");
 const bcryptjs = require("bcryptjs");
 const { GenerateToken } = require('../Auth/Auth');
-// const mail = require("../Sendmail/sendMail");
+const main = require("../Sendmail/sendMail");
 
 function RegisterUser(user){
     return new Promise((resolve, reject)=>{
@@ -88,7 +88,7 @@ const SendMail = (email, hostname)=>{
             let token = GenerateToken({id: user._id, email: user.email});
             let link = `http://${hostname}:8001/resetpassword/${user.email}/${token}`;
             
-            let bool = await mail(link, user.email);
+            let bool = await main(link, user.email);
 
             if (bool) {
                 resolve({status:200, message: "Link has been sent to your email id", success: true })

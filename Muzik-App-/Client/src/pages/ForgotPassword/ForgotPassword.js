@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import config from '../../config';
-import "./ForgotPassword.css"
+import "./ForgotPassword.css";
+import { useNavigate } from 'react-router';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
-
+    const naviagte = useNavigate();
     const handleChange = (e)=>{
         console.log(e.target);
         setEmail(e.target.value);
@@ -24,6 +25,7 @@ export default function ForgotPassword() {
         const data = await res.json();
         if(data.status === 200){
             window.alert("Link has been sent to your email id");
+            naviagte("/resetpassword");
         }
         else{
             window.alert("Some problem occured");

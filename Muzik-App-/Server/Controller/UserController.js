@@ -12,10 +12,12 @@ const RegisterUser = (req, res)=>{
 const UserLogin = (req, res) => {
     console.log(req.body.email, req.body.password);
     repo.LoginUser(req.body.email, req.body.password).then(data => {
+        // console.log(data.token)
         res.cookie("jwttoken", data.token, {
             maxAge: 1000 * 60 * 60,
-            httpOnly: true,
+            httpOnly: false,
         })
+        console.log(req.cookies);
         res.status(200).send(data);
     }).catch((err)=>{
         res.send(err);

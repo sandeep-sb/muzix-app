@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import login from "../../img/login.PNG";
 import signup from "../../img/signup.png";
 import config from "../../config";
+import axios from "axios";
 
 export default function Login() {
 
@@ -75,19 +76,26 @@ export default function Login() {
    
     const { email, password } = loginUser;
 
-    const res = await fetch(config.apiLoginUrl, {
-      method: "POST",
+    // const res = await fetch(config.apiLoginUrl, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   withCredentials: true,
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // });
+    const res = await axios.post(config.apiLoginUrl, loginUser, {
       headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+          "Content-Type": "application/json"
+      }, withCredentials: true
+  });
 
-    const loginData = await res.json();
+    const loginData = await res.data;
     console.log(loginData)
+    console.log(loginData.user)
     if(loginData.status === 200){
       window.alert("logged in successfully");
       navigate("/home");

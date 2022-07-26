@@ -13,7 +13,10 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser')
 
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true,
+}));
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 

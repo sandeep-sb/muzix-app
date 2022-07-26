@@ -5,6 +5,7 @@ import Home from './pages/Home/Home';
 import Search from './pages/Search/Search';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import ResetPassword from './pages/ResetPassword/ResetPassword';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path='/' element={<Login/>} />
       <Route path="/home" element={<Home />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/resetpassword" element={<ResetPassword/>} />
       <Route path="search" element={<Search/>} />
       </Routes>
       </BrowserRouter>

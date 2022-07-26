@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-async function mail(link, receiver) {
+async function main(link, receiver) {
     let account = await nodemailer.createTestAccount();
     const transporter = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
@@ -16,7 +16,7 @@ async function mail(link, receiver) {
     
     const info = await transporter.sendMail({
         from: '"Sender Name" <from@example.net>',
-        to: receiver,
+        to: "iamssb99@gmail.com",
         subject: "Hello from node",
         text: "Hello world?",
         html: `<b>We have received a password change request from your account<br><br>Click on the link below to reset your password<br><br><a href="${link}">Click here to change password</a></b>`,
@@ -28,8 +28,6 @@ async function mail(link, receiver) {
     return true;
 }
 
-mail().catch((err)=>{
-    return false;
-})
+main().catch(console.error);
 
-module.exports = mail;
+module.exports = main;
