@@ -16,7 +16,7 @@ export default function LandingTop() {
   return (
     <div className="LandingTop">
       <div className="details">
-        <div className="User" id="User"  onClick={() => showSettings()}>
+        <div className="User" onClick={() => showSettings()}>
           <h5>
             <i className="LandingIcon fa-solid fa-user"></i>
             Welcome, Paras Singh

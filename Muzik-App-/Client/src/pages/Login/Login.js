@@ -8,7 +8,7 @@ import config from "../../config";
 export default function Login() {
 
   const navigate = useNavigate();
-
+  const passwordPattern = `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`;
 
   const [signUp, setSignUp] = useState({
     username: "",
@@ -92,8 +92,11 @@ export default function Login() {
       window.alert("logged in successfully");
       navigate("/home");
     }
-    else if(loginData.status === 401){
-      window.alert("You are not authorized. Please check your email and password.")
+    else if(loginData.status === 404){
+      window.alert("You are not authorized. Please check your email.")
+    }
+    else if(loginData.status === 402){
+      window.alert("You are not authoroized. please check your password.")
     }
 
   };
@@ -115,6 +118,11 @@ export default function Login() {
 
     document.getElementById("panel").classList.add("right-panel2");
   };
+
+  const [focused, setfocused] = useState(false);
+    function handleFocus(e){
+        setfocused(true);
+    }
 
   return (
     <div className="container" id="container">
@@ -147,6 +155,7 @@ export default function Login() {
                 onChange={handleLoginInputs}
                  />
             </div>
+            <p onClick={()=>navigate("/forgotpassword")} className="forgot-password">Forgot your password ?</p>
             <button type="button" className="btn solid" onClick={UserLogin}>
               Login
             </button>
@@ -173,6 +182,7 @@ export default function Login() {
             <div className="input-field">
               <i className="fas fa-user"></i>
               <input
+              className="registerinput"
                 key="username"
                 id="username"
                 name="username"
@@ -180,11 +190,16 @@ export default function Login() {
                 placeholder="Username"
                 value={signUp.username}
                 onChange={handleRegisterInputs}
+                pattern= "^[A-Za-z0-9]{3,16}$"
+                onBlur={handleFocus} 
+                focused={focused.toString()}
               />
             </div>
+            <span>UserName should be 3-16 characters and shouldn't include any special characters.</span>
             <div className="input-field">
               <i className="fas fa-envelope"></i>
               <input
+              className="registerinput"
                 key="email"
                 id="email"
                 name="email"
@@ -192,23 +207,32 @@ export default function Login() {
                 placeholder="Email"
                 value={signUp.email}
                 onChange={handleRegisterInputs}
+                onBlur={handleFocus} 
+                focused={focused.toString()}
               />
             </div>
+            <span>Not a valid email</span>
             <div className="input-field">
               <i className="fas fa-lock"></i>
               <input
+              className="registerinput"
                 key="password"
-                id="password"
+                id="passwordw"
                 name="password"
                 type="password"
                 placeholder="Password"
                 value={signUp.password}
                 onChange={handleRegisterInputs}
+                pattern={passwordPattern}
+                onBlur={handleFocus} 
+                focused={focused.toString()}
               />
             </div>
+            <span>Password should be between 8-20 characters.must contain 1 letter, 1 number, and 1 special character, i.e., !@#$%^*</span>
             <div className="input-field">
               <i className="fas fa-lock"></i>
               <input
+              className="registerinput"
                 key="confirmPassword"
                 id="confirmPassword"
                 name="confirmPassword"
@@ -216,8 +240,12 @@ export default function Login() {
                 placeholder="Confirm Password"
                 value={signUp.confirmPassword}
                 onChange={handleRegisterInputs}
+                pattern={signUp.password}
+                onBlur={handleFocus} 
+                focused={focused.toString()}
               />
             </div>
+            <span>Passwords does not match</span>
             <button type="button" className="btn solid" onClick={RegisterData}>
               Register
             </button>

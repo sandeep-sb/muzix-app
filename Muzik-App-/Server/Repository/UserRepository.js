@@ -50,7 +50,8 @@ const LoginUser = (email, password) => {
                 resolve({
                     status: 200, 
                     token: token, 
-                    message: "User Login successfully."
+                    message: "User Login successfully",
+                    user: user
                 });
             }
         }
@@ -80,7 +81,7 @@ const SendMail = (email, hostname)=>{
     return new Promise(async (resolve, reject)=>{
         let user = await UserModel.findOne({email: email});
         if(!user){
-            reject({message: "User not found", success: false});
+            reject({status:404, message: "User not found", success: false});
         }
 
         if(user){
@@ -90,7 +91,7 @@ const SendMail = (email, hostname)=>{
             let bool = await mail(link, user.email);
 
             if (bool) {
-                resolve({ message: "Link has been sent to your email id", success: true })
+                resolve({status:200, message: "Link has been sent to your email id", success: true })
             } else {
                 reject({ message: "Link coud not be sent to your email id", success: false })
             }

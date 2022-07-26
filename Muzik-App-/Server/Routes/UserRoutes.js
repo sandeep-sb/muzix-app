@@ -12,20 +12,22 @@ router.post("/forgotpassword", SendMail);
 // router.get('/auth/google', passport.authenticate('google', { scope: [ 'email', 'profile' ] }));
 // router.get("/google/callback", passport.authenticate('google', {successRedirect: "/home", failureRedirect: "/login"}));
 
-router.get("login/page", (req, res)=>{
-    res.render("/login");
-});
-router.get("register/page", (req, res)=>{
-    res.render("/register");
-});
-router.get("/home", VerifyTokenMiddleware, (req, res)=>{
-    res.render("userhome");
-});
-router.get("/forgotpassword/page", (req, res)=>{
-    res.render("forgotpassword");
-});
-router.get("/resetpassword/:email/:token", TokenAuthentication, (req, res)=>{
-    res.render("resetpassword")
-})
+
+
+// router.get("login/page", (req, res)=>{
+//     res.render("/login");
+// });
+// router.get("register/page", (req, res)=>{
+//     res.render("/register");
+// });
+// router.get("/home", VerifyTokenMiddleware, (req, res)=>{
+//     res.render("userhome");
+// });
+// router.get("/forgotpassword/page", (req, res)=>{
+//     res.render("forgotpassword");
+// });
+// router.get("/resetpassword/:email/:token", TokenAuthentication, (req, res)=>{
+//     res.render("resetpassword")
+// })
 
 module.exports = router;

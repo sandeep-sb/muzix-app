@@ -95,6 +95,7 @@ form{
     font-weight: 600;
     font-size: 1.2rem;
     color: #333;
+    margin-top: 0;
 }
 
 .input-field input:placeholder-shown{
@@ -332,7 +333,25 @@ form.sign-up-form {
 }
 
 
+span{
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    max-width: 380px;
+    display: block;
+    text-align: center;
+    display: none;
+}
 
+input:invalid[focused="true"] ~ span{
+    display: block;
+}
 
+.forgot-password{
+    margin: 10px 0;
+}
 
-
+.forgot-password:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

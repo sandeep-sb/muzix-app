@@ -13,7 +13,7 @@ const UserLogin = (req, res) => {
     console.log(req.body.email, req.body.password);
     repo.LoginUser(req.body.email, req.body.password).then(data => {
         res.cookie("jwttoken", data.token, {
-            maxAge: 1000 * 60 * 15,
+            maxAge: 1000 * 60 * 60,
             httpOnly: true,
         })
         res.status(200).send(data);
@@ -23,9 +23,10 @@ const UserLogin = (req, res) => {
 }
 
 const UserLogout = (req, res) => {
-    repo.LogoutUser().then(()=>{
+    repo.LogoutUser().then((data)=>{
         res.clearCookie("jwttoken");
-        res.redirect("/login");
+        // res.redirect("/login");
+        res.status(200).send({status:200})
     });
 }
 
