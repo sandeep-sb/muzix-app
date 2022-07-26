@@ -1,16 +1,19 @@
 const express = require("express");
 const passport = require("passport");
-const {RegisterUser, TokenAuthentication, VerifyTokenMiddleware, UserLogin, UserLogout, PasswordReset, SendMail } = require("../Controller/UserController");
+const {RegisterUser, UserLogin, UserLogout, PasswordReset, SendMail, isAuthenticated } = require("../Controller/UserController");
+const { isLoginMiddleware, VerifyTokenMiddleware } = require("../Middleware/Middleware");
 const router = express.Router();
 
+// router.get("/profile", isLoginMiddleware, VerifyTokenMiddleware, Profile);
 router.post("/register", RegisterUser);
-// router.post("/login", passport.authenticate('local'), LoginUser);
-router.post("/login", UserLogin);
+router.post("/login", passport.authenticate('local'), UserLogin);
 router.post("/logout", UserLogout);
-router.post(`/resetpassword/:email/:token`, PasswordReset);
+router.post("/resetpassword", isLoginMiddleware, VerifyTokenMiddleware, PasswordReset);
 router.post("/forgotpassword", SendMail);
+router.get("/isAuthenticated", isLoginMiddleware, isAuthenticated);
 // router.get('/auth/google', passport.authenticate('google', { scope: [ 'email', 'profile' ] }));
 // router.get("/google/callback", passport.authenticate('google', {successRedirect: "/home", failureRedirect: "/login"}));
+// router.post("/login", UserLogin);
 
 
 

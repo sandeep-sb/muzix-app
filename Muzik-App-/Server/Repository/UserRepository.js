@@ -60,7 +60,7 @@ const LoginUser = (email, password) => {
 
 const LogoutUser = ()=>{
     return new Promise((resolve, reject) => {
-        resolve({ message: 'clear cookie' })
+        resolve({status:200, message: 'clear cookie' })
     })
 }
 

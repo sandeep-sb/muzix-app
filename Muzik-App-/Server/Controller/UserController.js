@@ -1,6 +1,4 @@
-const { GenerateToken, VerifyToken } = require('../Auth/Auth');
-const UserModel = require("../Model/UserModel");
-const bcryptjs = require("bcryptjs");
+const { VerifyToken } = require('../Auth/Auth');
 const repo = require("../Repository/UserRepository");
 
 const RegisterUser = (req, res)=>{
@@ -15,7 +13,7 @@ const UserLogin = (req, res) => {
         // console.log(data.token)
         res.cookie("jwttoken", data.token, {
             maxAge: 1000 * 60 * 60,
-            httpOnly: false,
+            httpOnly: true,
         })
         // console.log(req.cookies);
         res.status(200).send(data);
@@ -28,7 +26,7 @@ const UserLogout = (req, res) => {
     repo.LogoutUser().then((data)=>{
         res.clearCookie("jwttoken");
         // res.redirect("/login");
-        res.status(200).send({status:200})
+        res.status(200).send(data)
     });
 }
 
@@ -48,23 +46,19 @@ const SendMail = (req, res)=>{
     })
 }
 
-function TokenAuthentication(req, res) {
-    let token = req.params.token;
-    if (VerifyToken(token) === true) {
-        next();
-    } else {
-        res.status(401).send({ status: 401, message: "You are not authorized" });
-    }
+// function TokenAuthentication(req, res) {
+//     let token = req.params.token;
+//     if (VerifyToken(token) === true) {
+//         next();
+//     } else {
+//         res.status(401).send({ status: 401, message: "You are not authorized" });
+//     }
+// }
+
+function isAuthenticated(req, res) {
+    res.send({ isAuthenticated: VerifyToken(req.headers.authorization) })
 }
 
 
-function VerifyTokenMiddleware(req, res, next) {
-    let token = req.cookie.token;
-    if (VerifyToken(token) === true) {
-        next();
-    } else {
-        res.status(401).send({ status: 401, message: "You are not authorized" });
-    }
-}
 
-module.exports = {TokenAuthentication, VerifyTokenMiddleware, UserLogin, UserLogout, PasswordReset, SendMail, RegisterUser }
+module.exports = { UserLogin, UserLogout, PasswordReset, SendMail, RegisterUser, isAuthenticated }

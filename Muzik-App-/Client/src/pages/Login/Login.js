@@ -26,7 +26,6 @@ export default function Login() {
 // handle inputs
   let name, value;
   const handleRegisterInputs = (e) => {
-    console.log(e);
     name = e.target.name;
     value = e.target.value;
 
@@ -34,7 +33,6 @@ export default function Login() {
   };
   
   const handleLoginInputs = (e) => {
-    console.log(e);
     name = e.target.name;
     value = e.target.value;
 
